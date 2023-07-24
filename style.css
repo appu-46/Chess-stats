@@ -14,10 +14,29 @@ body {
   color: #555;
   background-color: #eeeded;
   min-height: 100vh;
-
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: center;
   align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+/* h1 {
+  font-size: 48px;
+} */
+header {
+  display: flex;
+  margin-top: 3rem;
+  font-size: 40px;
+  align-items: first baseline;
+}
+.home-page {
+  text-decoration: none;
+  color: inherit;
+}
+.home-page:visited {
+  /* font-style: normal; */
+  color: inherit;
 }
 .container {
   display: flex;
@@ -56,6 +75,7 @@ body {
   padding: 2rem 5rem;
   border-radius: 50px;
   color: rgb(117, 117, 117);
+  margin-top: 25rem;
   margin-bottom: 3rem;
   background-color: #ffffff;
   /* cursor: pointer; */
