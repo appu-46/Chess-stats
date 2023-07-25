@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
+  /* box-sizing: inherit; */
 }
 
 html {
@@ -82,13 +82,25 @@ header {
 }
 
 .stats {
-  background-color: #fff;
-  box-shadow: 2rem 5rem 1rem rgba(0, 0, 0, 0.1);
+  /* background-color: #fff; */
+  /* box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1); */
   font-size: 28px;
-  width: 38rem;
+  /* width: 38rem; */
   border-radius: 0.7rem;
-  margin: 0 3rem;
-}
-.ratings {
+  margin: 0 1rem 1rem 3rem;
   padding: 3rem 3rem 3rem 3rem;
+  display: grid;
+  grid-template-columns: 40rem 40rem;
+  grid-gap: 3rem;
+}
+
+.stat {
+  width: 34rem;
+  border-radius: 0.7rem;
+  background-color: #fff;
+  /* margin: 1rem 1rem 1rem 1rem; */
+  padding: 3rem 3rem 3rem 3rem;
+}
+.ratings__blitz {
+  box-sizing: content-box;
 }

@@ -24,15 +24,53 @@ const renderStats = async function (data) {
 
   // console.log(res, blitz, bullet, daily, rapid);
 
-  const html = `<article class="stats">
-  <div class="ratings">
-    <p class="blitz">Best Blitz rating : ${blitz.best.rating}</h3>
-    <p class="bullet">Best Bullet rating : ${bullet.best.rating}</h4>
-    <p class="daily">Best Daily rating : ${daily.best.rating}</p>
-    <p class="rapid">Best Rapid rating : ${rapid.best.rating}</p>
+  const html = `<article class="stat">
+  <div class="ratings__blitz">
+  <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
+    <p class="best">Best Elo: ${blitz.best.rating}</p>
+    <p class="latest">Live Elo: ${blitz.last.rating}</p>
+    <p class="record"> 
+    <p>Wins:     ${blitz.record.win}</p>
+    <p>Losses:   ${blitz.record.loss}</p>
+    <p>Draws:    ${blitz.record.draw}</p>
   </div>
-  </article>`;
+  </article>
+  <article class="stat">
+  <div class="ratings__bullet">
+  <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
+    <p class="best">Best Elo: ${bullet.best.rating}</p>
+    <p class="latest">Live Elo: ${bullet.last.rating}</p>
+    <p class="record"> 
+    <p>Wins:     ${bullet.record.win}</p>
+    <p>Losses:   ${bullet.record.loss}</p>
+    <p>Draws:    ${bullet.record.draw}</p>
+  </div>
+  </article>
+  <article class="stat">
+  <div class="ratings__daily">
+  <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
+    <p class="best">Best Elo: ${daily.best.rating}</p>
+    <p class="latest">Live Elo: ${daily.last.rating}</p>
+    <p class="record"> 
+    <p>Wins:     ${daily.record.win}</p>
+    <p>Losses:   ${daily.record.loss}</p>
+    <p>Draws:    ${daily.record.draw}</p>
+  </div>
+  </article>
+  <article class="stat">
+  <div class="ratings__rapid">
+  <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
+    <p class="best">Best Elo: ${rapid.best.rating}</p>
+    <p class="latest">Live Elo: ${rapid.last.rating}</p>
+    <p class="record"> 
+    <p>Wins:     ${rapid.record.win}</p>
+    <p>Losses:   ${rapid.record.loss}</p>
+    <p>Draws:    ${rapid.record.draw}</p>
+  </div>
+  </article>
+  `;
 
+  /*
   window.onload = function () {
     var chart = new CanvasJS.Chart('chartContainer', {
       theme: 'dark2', //light1
@@ -54,13 +92,13 @@ const renderStats = async function (data) {
     });
     chart.render();
   };
+  */
   statsContainer.insertAdjacentHTML('beforeend', html);
   textbox.hidden = true;
   statsButton.hidden = true;
 };
-
 statsButton.addEventListener('click', function () {
   renderStats(textbox.value);
 });
 
-// chessStats("samayraina");
+renderStats('hikaru');
