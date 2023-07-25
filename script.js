@@ -19,14 +19,15 @@ const getPlayerCountry = async function (url) {
   const res = await fetch(url);
   const data = await res.json();
   const countryName = data.name;
+  const countryCode = data.code;
   const res2 = await fetch(
-    `https://restcountries.com/v3.1/name/${countryName}`
+    `https://restcountries.com/v3.1/alpha/${countryCode}`
   );
   const data2 = await res2.json();
-  console.log(data2);
+  // console.log(data2);
   const flag = data2[0].flags.svg;
-  const country = [countryName, flag];
-  console.log(countryName);
+  const country = [countryCode, flag, countryName];
+  // console.log(countryName);
 
   return country;
 };
@@ -41,16 +42,17 @@ const getStats = async function (username) {
 const renderProfile = async function (data) {
   const res = await getPlayerInfo(data);
 
-  const title = res.title;
-  const name = res.name;
+  const title = !res.title ? ' ' : res.title;
+  const name = !res.name ? res.username : res.name;
   const avatar = res.avatar;
   const country = await getPlayerCountry(res.country);
   const league = res.league;
 
   const html = `<article class="profile">
   <img class="pfp" src="${avatar}"/>
-  <h2>${title} \t ${name}</h2> <h2>${country[0]}</h2> <img class="flag" src="${country[1]}"/> <h2>${league} League</h2> 
-  </div>
+  <h2>${title} \t ${name}</h2> 
+  <img class="flag" src="${country[1]}"/><h2>${country[2]}</h2> 
+  <h2>${league} League</h2> 
   </article>`;
 
   profileContainer.insertAdjacentHTML('beforeend', html);
@@ -61,14 +63,17 @@ const renderProfile = async function (data) {
 const renderStats = async function (data) {
   const res = await getStats(data);
 
-  const blitz = res.chess_blitz;
-  const bullet = res.chess_bullet;
-  const daily = res.chess_daily;
-  const rapid = res.chess_rapid;
+  const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
+  const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
+  const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
+  const daily = !res.chess_daily ? ' ' : res.chess_daily;
 
   // console.log(res, blitz, bullet, daily, rapid);
 
-  const html = `<article class="stat">
+  const html =
+    daily === ' '
+      ? ''
+      : `<article class="stat">
   <div class="ratings__blitz">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${blitz.best.rating}</p>
@@ -146,6 +151,6 @@ statsButton.addEventListener('click', function () {
   renderProfile(textbox.value);
 });
 
-renderStats('hikaru');
-renderProfile('hikaru');
+// renderStats('hikaru');
+// renderProfile('hikaru');
 // renderStats('hikaru');
