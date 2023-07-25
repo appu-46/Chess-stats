@@ -9,6 +9,15 @@ html {
   box-sizing: border-box;
 }
 
+.pfp {
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+}
+.flag {
+  height: 30px;
+  width: 30px;
+}
 body {
   font-family: 'Source Serif Pro', sans-serif;
   color: #555;
@@ -21,15 +30,14 @@ body {
   align-items: center;
   flex-direction: column;
 }
-/* h1 {
-  font-size: 48px;
-} */
+
 header {
   display: flex;
   margin-top: 3rem;
   font-size: 40px;
   align-items: first baseline;
 }
+
 .home-page {
   text-decoration: none;
   color: inherit;
@@ -85,7 +93,6 @@ header {
   /* background-color: #fff; */
   /* box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1); */
   font-size: 28px;
-  /* width: 38rem; */
   border-radius: 0.7rem;
   margin: 0 1rem 1rem 3rem;
   padding: 3rem 3rem 3rem 3rem;
@@ -103,4 +110,11 @@ header {
 }
 .ratings__blitz {
   box-sizing: content-box;
+}
+
+.profile {
+  font-size: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }

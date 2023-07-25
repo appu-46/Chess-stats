@@ -3,7 +3,33 @@
 const statsButton = document.querySelector('.btn-stats');
 const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
+const profileContainer = document.querySelector('.player_info');
+
 // const input = document.getElementById('userid');
+const getPlayerInfo = async function (username) {
+  const res = await fetch(`https://api.chess.com/pub/player/${username}`);
+  const data = await res.json();
+
+  console.log(data);
+
+  return data;
+};
+
+const getPlayerCountry = async function (url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  const countryName = data.name;
+  const res2 = await fetch(
+    `https://restcountries.com/v3.1/name/${countryName}`
+  );
+  const data2 = await res2.json();
+  console.log(data2);
+  const flag = data2[0].flags.svg;
+  const country = [countryName, flag];
+  console.log(countryName);
+
+  return country;
+};
 
 const getStats = async function (username) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
@@ -12,7 +38,25 @@ const getStats = async function (username) {
   return data;
 };
 
-// statsButton.addEventListener('click', chessStats('appu_46'));
+const renderProfile = async function (data) {
+  const res = await getPlayerInfo(data);
+
+  const title = res.title;
+  const name = res.name;
+  const avatar = res.avatar;
+  const country = await getPlayerCountry(res.country);
+  const league = res.league;
+
+  const html = `<article class="profile">
+  <img class="pfp" src="${avatar}"/>
+  <h2>${title} \t ${name}</h2> <h2>${country[0]}</h2> <img class="flag" src="${country[1]}"/> <h2>${league} League</h2> 
+  </div>
+  </article>`;
+
+  profileContainer.insertAdjacentHTML('beforeend', html);
+  textbox.hidden = true;
+  statsButton.hidden = true;
+};
 
 const renderStats = async function (data) {
   const res = await getStats(data);
@@ -99,6 +143,9 @@ const renderStats = async function (data) {
 };
 statsButton.addEventListener('click', function () {
   renderStats(textbox.value);
+  renderProfile(textbox.value);
 });
 
 renderStats('hikaru');
+renderProfile('hikaru');
+// renderStats('hikaru');
