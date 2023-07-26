@@ -10,7 +10,7 @@ const errorContainer = document.querySelector('.error');
 const getPlayerInfo = async function (username) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`);
   const data = await res.json();
-
+  console.log(res);
   console.log(data);
 
   return data;
@@ -36,6 +36,7 @@ const getPlayerCountry = async function (url) {
 const getStats = async function (username) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}/stats`);
   const data = await res.json();
+  console.log(res);
   console.log(data);
   return data;
 };
@@ -50,43 +51,52 @@ const renderProfile = async function (data) {
   // if (data === '') {
   //   return;
   // }
-  const res = await getPlayerInfo(data);
+  try {
+    const res = await getPlayerInfo(data);
 
-  const title = !res.title ? ' ' : res.title;
-  const name = !res.name ? res.username : res.name;
-  const avatar = !res.avatar ? 'img\\channels4_profile.jpg' : res.avatar;
-  const country = await getPlayerCountry(res.country);
-  const league = !res.league ? ' ' : res.league + ' League';
+    const title = !res.title ? ' ' : res.title;
+    const name = !res.name ? res.username : res.name;
+    const avatar = !res.avatar ? 'img\\channels4_profile.jpg' : res.avatar;
+    const country = await getPlayerCountry(res.country);
+    const league = !res.league ? ' ' : res.league + ' League';
+    const verified = res.verified ? '✅' : '';
 
-  const html = `<article class="profile">
+    const html = `<article class="profile">
   <img class="pfp" src="${avatar}"/>
-  <h2>${title} \t ${name}</h2> 
+  <h2>${title} \t ${name} ${verified} </h2>
   <img class="flag" src="${country[1]}"/><h2>${country[2]}</h2> 
   <h2>${league}</h2> 
   </article>`;
 
-  profileContainer.insertAdjacentHTML('beforeend', html);
-  errorContainer.hidden = true;
-  textbox.hidden = true;
-  statsButton.hidden = true;
+    profileContainer.insertAdjacentHTML('beforeend', html);
+    errorContainer.hidden = true;
+    textbox.hidden = true;
+    statsButton.hidden = true;
+  } catch (err) {
+    renderError(`Error: Something went wrong! Press home button and retry!`);
+    console.error(err);
+  }
 };
 
 const renderStats = async function (data) {
-  try {
-    const res = await getStats(data);
-    if (res.code === 0) {
-      // throw new Error(`${res.message}`);
-      renderError(`${res.message} Press home button and try again!`);
-    }
+  const res = await getStats(data);
+  if (res.code === 0) {
+    // throw new Error(`${res.message}`);
+    renderError(`${res.message} Press home button and try again!`);
+  }
+  const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
+  const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
+  const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
+  const daily = [
+    !res.chess_daily.best ? '' : res.chess_daily.best.rating,
+    !res.chess_daily.last.rating ? '' : res.chess_daily.last.rating,
+    !res.chess_daily.record.win ? '' : res.chess_daily.record.win,
+    !res.chess_daily.record.loss ? '' : res.chess_daily.record.loss,
+    !res.chess_daily.record.draw ? '' : res.chess_daily.record.draw,
+  ];
+  // console.log(res, blitz, bullet, daily, rapid);
 
-    const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
-    const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
-    const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
-    const daily = !res.chess_daily ? ' ' : res.chess_daily;
-
-    // console.log(res, blitz, bullet, daily, rapid);
-
-    const htmlBlitz = `<article class="stat">
+  const htmlBlitz = `<article class="stat">
   <div class="ratings__blitz">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${blitz.best.rating}</p>
@@ -97,7 +107,7 @@ const renderStats = async function (data) {
     <p>Draws:    ${blitz.record.draw}</p>
   </div>
   </article>`;
-    const htmlBullet = `<article class="stat">
+  const htmlBullet = `<article class="stat">
   <div class="ratings__bullet">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${bullet.best.rating}</p>
@@ -108,18 +118,18 @@ const renderStats = async function (data) {
     <p>Draws:    ${bullet.record.draw}</p>
   </div>
   </article>`;
-    const htmlDaily = `<article class="stat">
+  const htmlDaily = `<article class="stat">
   <div class="ratings__daily">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
-    <p class="best">Best Elo: ${daily.best.rating}</p>
-    <p class="latest">Live Elo: ${daily.last.rating}</p>
+    <p class="best">Best Elo: ${daily[0]}</p>
+    <p class="latest">Live Elo: ${daily[1]}</p>
     <p class="record"> 
-    <p>Wins:     ${daily.record.win}</p>
-    <p>Losses:   ${daily.record.loss}</p>
-    <p>Draws:    ${daily.record.draw}</p>
+    <p>Wins:     ${daily[2]}</p>
+    <p>Losses:   ${daily[3]}</p>
+    <p>Draws:    ${daily[4]}</p>
   </div>
   </article>`;
-    const htmlRapid = `<article class="stat">
+  const htmlRapid = `<article class="stat">
   <div class="ratings__rapid">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${rapid.best.rating}</p>
@@ -130,17 +140,27 @@ const renderStats = async function (data) {
     <p>Draws:    ${rapid.record.draw}</p>
   </div>
   </article>
-  `;
-    statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
-    statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
-    statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
-    statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
-    errorContainer.hidden = true;
-    textbox.hidden = true;
-    statsButton.hidden = true;
-  } catch (err) {
-    console.error(`${err} Press home button and try again!`);
-  }
+  `; /*
+  const html960daily = `<article class="stat">
+  <div class="ratings__960daily">
+  <h2><strong><span>⏰960Daily Ratings</strong></span> </h2>
+    <p class="best">Best Elo: ${daily960.best.rating}</p>
+    <p class="latest">Live Elo: ${daily960.last.rating}</p>
+    <p class="record"> 
+    <p>Wins:     ${daily960.record.win}</p>
+    <p>Losses:   ${daily960.record.loss}</p>
+    <p>Draws:    ${daily960.record.draw}</p>
+  </div>
+  </article>
+  `;*/
+  statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
+  statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
+  statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
+  statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
+  errorContainer.hidden = true;
+  textbox.hidden = true;
+  statsButton.hidden = true;
+
   /*
   window.onload = function () {
     var chart = new CanvasJS.Chart('chartContainer', {
@@ -171,6 +191,7 @@ statsButton.addEventListener('click', function () {
     alert(`Please enter a chess.com username!`);
     return;
   }
+
   renderStats(textbox.value);
   renderProfile(textbox.value);
 });
