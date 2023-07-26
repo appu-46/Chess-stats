@@ -15,6 +15,12 @@ html {
   width: 75px;
   border-radius: 100%;
 }
+.homelogo {
+  /* border: solid black 1px; */
+  height: 75px;
+  width: 75px;
+  border-radius: 100%;
+}
 .flag {
   height: 30px;
   width: 30px;
@@ -92,7 +98,7 @@ header {
   margin-top: 25rem;
   margin-bottom: 3rem;
   background-color: #ffffff;
-  /* cursor: pointer; */
+  transition: opacity 0.25s;
 }
 
 .stats {
@@ -113,6 +119,7 @@ header {
   background-color: #fff;
   /* margin: 1rem 1rem 1rem 1rem; */
   padding: 3rem 3rem 3rem 3rem;
+  transition: opacity 0.25s;
 }
 .ratings__blitz {
   box-sizing: content-box;
@@ -135,4 +142,11 @@ header {
   /* flex-wrap: wrap; */
   align-items: center;
   grid-gap: 2rem;
+  transition: opacity 0.25s;
+}
+
+.error {
+  margin-top: 25rem;
+  font-size: 28px;
+  transition: opacity 0.5s;
 }

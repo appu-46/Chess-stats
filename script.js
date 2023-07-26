@@ -4,6 +4,7 @@ const statsButton = document.querySelector('.btn-stats');
 const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
 const profileContainer = document.querySelector('.player_info');
+const errorContainer = document.querySelector('.error');
 
 // const input = document.getElementById('userid');
 const getPlayerInfo = async function (username) {
@@ -39,41 +40,53 @@ const getStats = async function (username) {
   return data;
 };
 
+const renderError = function (msg) {
+  errorContainer.insertAdjacentHTML('beforeend', msg);
+  textbox.hidden = true;
+  statsButton.hidden = true;
+};
+
 const renderProfile = async function (data) {
+  // if (data === '') {
+  //   return;
+  // }
   const res = await getPlayerInfo(data);
 
   const title = !res.title ? ' ' : res.title;
   const name = !res.name ? res.username : res.name;
-  const avatar = res.avatar;
+  const avatar = !res.avatar ? 'img\\channels4_profile.jpg' : res.avatar;
   const country = await getPlayerCountry(res.country);
-  const league = res.league;
+  const league = !res.league ? ' ' : res.league + ' League';
 
   const html = `<article class="profile">
   <img class="pfp" src="${avatar}"/>
   <h2>${title} \t ${name}</h2> 
   <img class="flag" src="${country[1]}"/><h2>${country[2]}</h2> 
-  <h2>${league} League</h2> 
+  <h2>${league}</h2> 
   </article>`;
 
   profileContainer.insertAdjacentHTML('beforeend', html);
+  errorContainer.hidden = true;
   textbox.hidden = true;
   statsButton.hidden = true;
 };
 
 const renderStats = async function (data) {
-  const res = await getStats(data);
+  try {
+    const res = await getStats(data);
+    if (res.code === 0) {
+      // throw new Error(`${res.message}`);
+      renderError(`${res.message} Press home button and try again!`);
+    }
 
-  const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
-  const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
-  const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
-  const daily = !res.chess_daily ? ' ' : res.chess_daily;
+    const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
+    const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
+    const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
+    const daily = !res.chess_daily ? ' ' : res.chess_daily;
 
-  // console.log(res, blitz, bullet, daily, rapid);
+    // console.log(res, blitz, bullet, daily, rapid);
 
-  const html =
-    daily === ' '
-      ? ''
-      : `<article class="stat">
+    const htmlBlitz = `<article class="stat">
   <div class="ratings__blitz">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${blitz.best.rating}</p>
@@ -83,8 +96,8 @@ const renderStats = async function (data) {
     <p>Losses:   ${blitz.record.loss}</p>
     <p>Draws:    ${blitz.record.draw}</p>
   </div>
-  </article>
-  <article class="stat">
+  </article>`;
+    const htmlBullet = `<article class="stat">
   <div class="ratings__bullet">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${bullet.best.rating}</p>
@@ -94,8 +107,8 @@ const renderStats = async function (data) {
     <p>Losses:   ${bullet.record.loss}</p>
     <p>Draws:    ${bullet.record.draw}</p>
   </div>
-  </article>
-  <article class="stat">
+  </article>`;
+    const htmlDaily = `<article class="stat">
   <div class="ratings__daily">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${daily.best.rating}</p>
@@ -105,8 +118,8 @@ const renderStats = async function (data) {
     <p>Losses:   ${daily.record.loss}</p>
     <p>Draws:    ${daily.record.draw}</p>
   </div>
-  </article>
-  <article class="stat">
+  </article>`;
+    const htmlRapid = `<article class="stat">
   <div class="ratings__rapid">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
     <p class="best">Best Elo: ${rapid.best.rating}</p>
@@ -118,7 +131,16 @@ const renderStats = async function (data) {
   </div>
   </article>
   `;
-
+    statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
+    statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
+    statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
+    statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
+    errorContainer.hidden = true;
+    textbox.hidden = true;
+    statsButton.hidden = true;
+  } catch (err) {
+    console.error(`${err} Press home button and try again!`);
+  }
   /*
   window.onload = function () {
     var chart = new CanvasJS.Chart('chartContainer', {
@@ -142,11 +164,13 @@ const renderStats = async function (data) {
     chart.render();
   };
   */
-  statsContainer.insertAdjacentHTML('beforeend', html);
-  textbox.hidden = true;
-  statsButton.hidden = true;
 };
+
 statsButton.addEventListener('click', function () {
+  if (textbox.value === '') {
+    alert(`Please enter a chess.com username!`);
+    return;
+  }
   renderStats(textbox.value);
   renderProfile(textbox.value);
 });
