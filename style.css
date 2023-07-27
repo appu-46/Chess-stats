@@ -44,6 +44,7 @@ body {
 
 header {
   /* color: #36454f; */
+  /* box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1); */
   display: flex;
   margin-top: 3rem;
   font-size: 40px;
@@ -84,7 +85,7 @@ header {
 }
 .btn-stats:active {
   transform: translate(-1.5%, 0.25px);
-  /* box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
   background-color: #571a91;
   color: white;
   /* font-weight: bolder; */
@@ -114,6 +115,7 @@ header {
 }
 
 .stat {
+  box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1);
   width: 34rem;
   border-radius: 0.7rem;
   background-color: #fff;
@@ -134,7 +136,8 @@ header {
 .profile {
   background-color: #36454f;
   color: #f5fffa;
-  /* border: solid rgb(117, 117, 117) 5px; */
+  box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1);
+  border: solid #36454f 3px;
   padding: 1rem 2rem 1rem 1rem;
   border-radius: 25rem;
   font-size: 20px;
