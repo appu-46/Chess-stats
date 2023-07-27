@@ -117,8 +117,8 @@ const renderStats = async function (data) {
   // console.log(res, blitz, bullet, daily, rapid);
 
   const htmlBlitz = `<article class="stat">
-  <div class="ratings__blitz">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
+  <div class="ratings">
     <p class="best">Best Elo: ${blitz[0]}</p>
     <p class="latest">Live Elo: ${blitz[1]}</p>
     <p class="record"> 
@@ -128,8 +128,8 @@ const renderStats = async function (data) {
   </div>
   </article>`;
   const htmlBullet = `<article class="stat">
-  <div class="ratings__bullet">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
+  <div class="ratings">
     <p class="best">Best Elo: ${bullet[0]}</p>
     <p class="latest">Live Elo: ${bullet[1]}</p>
     <p class="record"> 
@@ -139,8 +139,8 @@ const renderStats = async function (data) {
   </div>
   </article>`;
   const htmlDaily = `<article class="stat">
-  <div class="ratings__daily">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
+  <div class="ratings">
     <p class="best">Best Elo: ${daily[0]}</p>
     <p class="latest">Live Elo: ${daily[1]}</p>
     <p class="record"> 
@@ -150,8 +150,8 @@ const renderStats = async function (data) {
   </div>
   </article>`;
   const htmlRapid = `<article class="stat">
-  <div class="ratings__rapid">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
+  <div class="ratings">
     <p class="best">Best Elo: ${rapid[0]}</p>
     <p class="latest">Live Elo: ${rapid[1]}</p>
     <p class="record"> 

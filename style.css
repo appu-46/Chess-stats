@@ -121,8 +121,9 @@ header {
   padding: 3rem 3rem 3rem 3rem;
   transition: opacity 0.25s;
 }
-.ratings__blitz {
+.ratings {
   box-sizing: content-box;
+  margin-left: 6rem;
 }
 
 /* body:background {
