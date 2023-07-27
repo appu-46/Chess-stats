@@ -84,9 +84,27 @@ const renderStats = async function (data) {
     // throw new Error(`${res.message}`);
     renderError(`${res.message} Press home button and try again!`);
   }
-  const rapid = !res.chess_blitz ? ' ' : res.chess_rapid;
-  const blitz = !res.chess_blitz ? ' ' : res.chess_blitz;
-  const bullet = !res.chess_bullet ? ' ' : res.chess_bullet;
+  const rapid = [
+    !res.chess_rapid.best ? '' : res.chess_rapid.best.rating,
+    !res.chess_rapid.last.rating ? '' : res.chess_rapid.last.rating,
+    !res.chess_rapid.record.win ? '' : res.chess_rapid.record.win,
+    !res.chess_rapid.record.loss ? '' : res.chess_rapid.record.loss,
+    !res.chess_rapid.record.draw ? '' : res.chess_rapid.record.draw,
+  ];
+  const blitz = [
+    !res.chess_blitz.best ? '' : res.chess_blitz.best.rating,
+    !res.chess_blitz.last.rating ? '' : res.chess_blitz.last.rating,
+    !res.chess_blitz.record.win ? '' : res.chess_blitz.record.win,
+    !res.chess_blitz.record.loss ? '' : res.chess_blitz.record.loss,
+    !res.chess_blitz.record.draw ? '' : res.chess_blitz.record.draw,
+  ];
+  const bullet = [
+    !res.chess_bullet.best ? '' : res.chess_bullet.best.rating,
+    !res.chess_bullet.last.rating ? '' : res.chess_bullet.last.rating,
+    !res.chess_bullet.record.win ? '' : res.chess_bullet.record.win,
+    !res.chess_bullet.record.loss ? '' : res.chess_bullet.record.loss,
+    !res.chess_bullet.record.draw ? '' : res.chess_bullet.record.draw,
+  ];
   const daily = [
     !res.chess_daily.best ? '' : res.chess_daily.best.rating,
     !res.chess_daily.last.rating ? '' : res.chess_daily.last.rating,
@@ -99,23 +117,23 @@ const renderStats = async function (data) {
   const htmlBlitz = `<article class="stat">
   <div class="ratings__blitz">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
-    <p class="best">Best Elo: ${blitz.best.rating}</p>
-    <p class="latest">Live Elo: ${blitz.last.rating}</p>
+    <p class="best">Best Elo: ${blitz[0]}</p>
+    <p class="latest">Live Elo: ${blitz[1]}</p>
     <p class="record"> 
-    <p>Wins:     ${blitz.record.win}</p>
-    <p>Losses:   ${blitz.record.loss}</p>
-    <p>Draws:    ${blitz.record.draw}</p>
+    <p>Wins:     ${blitz[2]}</p>
+    <p>Losses:   ${blitz[3]}</p>
+    <p>Draws:    ${blitz[4]}</p>
   </div>
   </article>`;
   const htmlBullet = `<article class="stat">
   <div class="ratings__bullet">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
-    <p class="best">Best Elo: ${bullet.best.rating}</p>
-    <p class="latest">Live Elo: ${bullet.last.rating}</p>
+    <p class="best">Best Elo: ${bullet[0]}</p>
+    <p class="latest">Live Elo: ${bullet[1]}</p>
     <p class="record"> 
-    <p>Wins:     ${bullet.record.win}</p>
-    <p>Losses:   ${bullet.record.loss}</p>
-    <p>Draws:    ${bullet.record.draw}</p>
+    <p>Wins:     ${bullet[2]}</p>
+    <p>Losses:   ${bullet[3]}</p>
+    <p>Draws:    ${bullet[4]}</p>
   </div>
   </article>`;
   const htmlDaily = `<article class="stat">
@@ -132,12 +150,12 @@ const renderStats = async function (data) {
   const htmlRapid = `<article class="stat">
   <div class="ratings__rapid">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
-    <p class="best">Best Elo: ${rapid.best.rating}</p>
-    <p class="latest">Live Elo: ${rapid.last.rating}</p>
+    <p class="best">Best Elo: ${rapid[0]}</p>
+    <p class="latest">Live Elo: ${rapid[1]}</p>
     <p class="record"> 
-    <p>Wins:     ${rapid.record.win}</p>
-    <p>Losses:   ${rapid.record.loss}</p>
-    <p>Draws:    ${rapid.record.draw}</p>
+    <p>Wins:     ${rapid[2]}</p>
+    <p>Losses:   ${rapid[3]}</p>
+    <p>Draws:    ${rapid[4]}</p>
   </div>
   </article>
   `; /*
