@@ -84,14 +84,18 @@ const renderStats = async function (data) {
     // throw new Error(`${res.message}`);
     renderError(`${res.message} Press home button and try again!`);
   }
-  const rapid = [
+  const rapid = !res.rapid
+    ? ['NA', 'NA', 'NA', 'NA', 'NA']
+    :[
     !res.chess_rapid.best ? 'NA' : res.chess_rapid.best.rating,
     !res.chess_rapid.last.rating ? 'NA' : res.chess_rapid.last.rating,
     !res.chess_rapid.record.win ? 'NA' : res.chess_rapid.record.win,
     !res.chess_rapid.record.loss ? 'NA' : res.chess_rapid.record.loss,
     !res.chess_rapid.record.draw ? 'NA' : res.chess_rapid.record.draw,
   ];
-  const blitz = [
+  const blitz = !res.blitz
+    ? ['NA', 'NA', 'NA', 'NA', 'NA']
+    :[
     !res.chess_blitz.best ? 'NA' : res.chess_blitz.best.rating,
     !res.chess_blitz.last.rating ? 'NA' : res.chess_blitz.last.rating,
     !res.chess_blitz.record.win ? 'NA' : res.chess_blitz.record.win,
@@ -107,7 +111,9 @@ const renderStats = async function (data) {
         !res.chess_bullet.record.loss ? 'NA' : res.chess_bullet.record.loss,
         !res.chess_bullet.record.draw ? 'NA' : res.chess_bullet.record.draw,
       ];
-  const daily = [
+  const daily = !res.daily
+    ? ['NA', 'NA', 'NA', 'NA', 'NA']
+    :[
     !res.chess_daily.best ? 'NA' : res.chess_daily.best.rating,
     !res.chess_daily.last.rating ? 'NA' : res.chess_daily.last.rating,
     !res.chess_daily.record.win ? 'NA' : res.chess_daily.record.win,
