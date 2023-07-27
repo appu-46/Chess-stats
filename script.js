@@ -42,6 +42,26 @@ const getStats = async function (username) {
   return data;
 };
 
+const getgames = async function (url) {
+  const res = await fetch(url);
+  const data = await res.json();
+  console.log(res);
+  console.log(data);
+  return data;
+};
+
+const getarchive = async function (username) {
+  const res = await fetch(
+    `https://api.chess.com/pub/player/${username}/games/archives`
+  );
+  const data = await res.json();
+  getgames(data.archives[0]);
+  console.log(res);
+  console.log(data);
+  return data;
+};
+
+getarchive('appu_46');
 const renderError = function (msg) {
   errorContainer.insertAdjacentHTML('beforeend', msg);
   textbox.hidden = true;
