@@ -74,7 +74,9 @@ const renderProfile = async function (data) {
     statsButton.hidden = true;
   } catch (err) {
     errorContainer.hidden = false;
-    renderError(`Error: Something went wrong! Press home button and retry!`);
+    renderError(
+      `Error: Something went wrong while fetching profile! Press home button and retry!`
+    );
     console.error(err);
   }
 };
@@ -186,11 +188,13 @@ const renderStats = async function (data) {
     statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
     statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
     statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
-    errorContainer.hidden = true;
     textbox.hidden = true;
     statsButton.hidden = true;
   } catch (err) {
-    renderError(`Something went wrong! Press home button and try again!`);
+    errorContainer.hidden = false;
+    renderError(
+      `Error: Something went wrong while fetching stats! Press home button and try again!`
+    );
     console.error(err);
   }
   /*
