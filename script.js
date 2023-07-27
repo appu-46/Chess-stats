@@ -84,45 +84,38 @@ const renderStats = async function (data) {
     // throw new Error(`${res.message}`);
     renderError(`${res.message} Press home button and try again!`);
   }
-  const rapid = !res.rapid
-    ? ['NA', 'NA', 'NA', 'NA', 'NA']
-    :[
-    !res.chess_rapid.best ? 'NA' : res.chess_rapid.best.rating,
-    !res.chess_rapid.last.rating ? 'NA' : res.chess_rapid.last.rating,
-    !res.chess_rapid.record.win ? 'NA' : res.chess_rapid.record.win,
-    !res.chess_rapid.record.loss ? 'NA' : res.chess_rapid.record.loss,
-    !res.chess_rapid.record.draw ? 'NA' : res.chess_rapid.record.draw,
-  ];
-  const blitz = !res.blitz
-    ? ['NA', 'NA', 'NA', 'NA', 'NA']
-    :[
-    !res.chess_blitz.best ? 'NA' : res.chess_blitz.best.rating,
-    !res.chess_blitz.last.rating ? 'NA' : res.chess_blitz.last.rating,
-    !res.chess_blitz.record.win ? 'NA' : res.chess_blitz.record.win,
-    !res.chess_blitz.record.loss ? 'NA' : res.chess_blitz.record.loss,
-    !res.chess_blitz.record.draw ? 'NA' : res.chess_blitz.record.draw,
-  ];
-  const bullet = !res.bullet
-    ? ['NA', 'NA', 'NA', 'NA', 'NA']
-    : [
-        !res.chess_bullet.best ? 'NA' : res.chess_bullet.best.rating,
-        !res.chess_bullet.last.rating ? 'NA' : res.chess_bullet.last.rating,
-        !res.chess_bullet.record.win ? '' : res.chess_bullet.record.win,
-        !res.chess_bullet.record.loss ? 'NA' : res.chess_bullet.record.loss,
-        !res.chess_bullet.record.draw ? 'NA' : res.chess_bullet.record.draw,
-      ];
-  const daily = !res.daily
-    ? ['NA', 'NA', 'NA', 'NA', 'NA']
-    :[
-    !res.chess_daily.best ? 'NA' : res.chess_daily.best.rating,
-    !res.chess_daily.last.rating ? 'NA' : res.chess_daily.last.rating,
-    !res.chess_daily.record.win ? 'NA' : res.chess_daily.record.win,
-    !res.chess_daily.record.loss ? 'NA' : res.chess_daily.record.loss,
-    !res.chess_daily.record.draw ? 'NA' : res.chess_daily.record.draw,
-  ];
-  // console.log(res, blitz, bullet, daily, rapid);
+  try {
+    const rapid = [
+      !res.chess_rapid.best ? 'NA' : res.chess_rapid.best.rating,
+      !res.chess_rapid.last.rating ? 'NA' : res.chess_rapid.last.rating,
+      !res.chess_rapid.record.win ? 'NA' : res.chess_rapid.record.win,
+      !res.chess_rapid.record.loss ? 'NA' : res.chess_rapid.record.loss,
+      !res.chess_rapid.record.draw ? 'NA' : res.chess_rapid.record.draw,
+    ];
+    const blitz = [
+      !res.chess_blitz.best ? 'NA' : res.chess_blitz.best.rating,
+      !res.chess_blitz.last.rating ? 'NA' : res.chess_blitz.last.rating,
+      !res.chess_blitz.record.win ? 'NA' : res.chess_blitz.record.win,
+      !res.chess_blitz.record.loss ? 'NA' : res.chess_blitz.record.loss,
+      !res.chess_blitz.record.draw ? 'NA' : res.chess_blitz.record.draw,
+    ];
+    const bullet = [
+      !res.chess_bullet.best ? 'NA' : res.chess_bullet.best.rating,
+      !res.chess_bullet.last.rating ? 'NA' : res.chess_bullet.last.rating,
+      !res.chess_bullet.record.win ? '' : res.chess_bullet.record.win,
+      !res.chess_bullet.record.loss ? 'NA' : res.chess_bullet.record.loss,
+      !res.chess_bullet.record.draw ? 'NA' : res.chess_bullet.record.draw,
+    ];
+    const daily = [
+      !res.chess_daily.best ? 'NA' : res.chess_daily.best.rating,
+      !res.chess_daily.last.rating ? 'NA' : res.chess_daily.last.rating,
+      !res.chess_daily.record.win ? 'NA' : res.chess_daily.record.win,
+      !res.chess_daily.record.loss ? 'NA' : res.chess_daily.record.loss,
+      !res.chess_daily.record.draw ? 'NA' : res.chess_daily.record.draw,
+    ];
+    // console.log(res, blitz, bullet, daily, rapid);
 
-  const htmlBlitz = `<article class="stat">
+    const htmlBlitz = `<article class="stat">
   <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
   <div class="ratings">
     <p class="best">Best Elo: ${blitz[0]}</p>
@@ -133,7 +126,7 @@ const renderStats = async function (data) {
     <p>Draws:    ${blitz[4]}</p>
   </div>
   </article>`;
-  const htmlBullet = `<article class="stat">
+    const htmlBullet = `<article class="stat">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
   <div class="ratings">
     <p class="best">Best Elo: ${bullet[0]}</p>
@@ -144,7 +137,7 @@ const renderStats = async function (data) {
     <p>Draws:    ${bullet[4]}</p>
   </div>
   </article>`;
-  const htmlDaily = `<article class="stat">
+    const htmlDaily = `<article class="stat">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
   <div class="ratings">
     <p class="best">Best Elo: ${daily[0]}</p>
@@ -155,7 +148,7 @@ const renderStats = async function (data) {
     <p>Draws:    ${daily[4]}</p>
   </div>
   </article>`;
-  const htmlRapid = `<article class="stat">
+    const htmlRapid = `<article class="stat">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
   <div class="ratings">
     <p class="best">Best Elo: ${rapid[0]}</p>
@@ -178,15 +171,18 @@ const renderStats = async function (data) {
     <p>Draws:    ${daily960.record.draw}</p>
   </div>
   </article>
-  `;*/
-  statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
-  statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
-  statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
-  statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
-  errorContainer.hidden = true;
-  textbox.hidden = true;
-  statsButton.hidden = true;
-
+    `;*/
+    statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
+    statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
+    statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
+    statsContainer.insertAdjacentHTML('beforeend', htmlDaily);
+    errorContainer.hidden = true;
+    textbox.hidden = true;
+    statsButton.hidden = true;
+  } catch (err) {
+    renderError(`Something went wrong! Press home button and try again!`);
+    console.error(err);
+  }
   /*
   window.onload = function () {
     var chart = new CanvasJS.Chart('chartContainer', {
