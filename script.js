@@ -5,6 +5,7 @@ const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
 const profileContainer = document.querySelector('.player_info');
 const errorContainer = document.querySelector('.error');
+errorContainer.hidden = true;
 
 // const input = document.getElementById('userid');
 const getPlayerInfo = async function (username) {
@@ -69,22 +70,23 @@ const renderProfile = async function (data) {
   </article>`;
 
     profileContainer.insertAdjacentHTML('beforeend', html);
-    errorContainer.hidden = true;
     textbox.hidden = true;
     statsButton.hidden = true;
   } catch (err) {
+    errorContainer.hidden = false;
     renderError(`Error: Something went wrong! Press home button and retry!`);
     console.error(err);
   }
 };
 
 const renderStats = async function (data) {
-  const res = await getStats(data);
-  if (res.code === 0) {
-    // throw new Error(`${res.message}`);
-    renderError(`${res.message} Press home button and try again!`);
-  }
   try {
+    const res = await getStats(data);
+    if (res.code === 0) {
+      // throw new Error(`${res.message}`);
+      renderError(`${res.message} Press home button and try again!`);
+    }
+
     const rapid = [
       !res.chess_rapid.best ? 'NA' : res.chess_rapid.best.rating,
       !res.chess_rapid.last.rating ? 'NA' : res.chess_rapid.last.rating,
