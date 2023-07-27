@@ -98,13 +98,15 @@ const renderStats = async function (data) {
     !res.chess_blitz.record.loss ? '' : res.chess_blitz.record.loss,
     !res.chess_blitz.record.draw ? '' : res.chess_blitz.record.draw,
   ];
-  const bullet = [
-    !res.chess_bullet.best ? '' : res.chess_bullet.best.rating,
-    !res.chess_bullet.last.rating ? '' : res.chess_bullet.last.rating,
-    !res.chess_bullet.record.win ? '' : res.chess_bullet.record.win,
-    !res.chess_bullet.record.loss ? '' : res.chess_bullet.record.loss,
-    !res.chess_bullet.record.draw ? '' : res.chess_bullet.record.draw,
-  ];
+  const bullet = !res.bullet
+    ? ['', '', '', '', '']
+    : [
+        !res.chess_bullet.best ? '' : res.chess_bullet.best.rating,
+        !res.chess_bullet.last.rating ? '' : res.chess_bullet.last.rating,
+        !res.chess_bullet.record.win ? '' : res.chess_bullet.record.win,
+        !res.chess_bullet.record.loss ? '' : res.chess_bullet.record.loss,
+        !res.chess_bullet.record.draw ? '' : res.chess_bullet.record.draw,
+      ];
   const daily = [
     !res.chess_daily.best ? '' : res.chess_daily.best.rating,
     !res.chess_daily.last.rating ? '' : res.chess_daily.last.rating,
