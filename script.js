@@ -7,6 +7,7 @@ const profileContainer = document.querySelector('.player_info');
 const errorContainer = document.querySelector('.error');
 errorContainer.hidden = true;
 
+
 // const input = document.getElementById('userid');
 
 const getPlayerInfo = async function (username) {
@@ -22,14 +23,14 @@ const getPlayerCountry = async function (url) {
   const res = await fetch(url);
   const data = await res.json();
   const countryName = data.name;
-  const countryCode = data.code;
+  const countryCode = (data.code === 'XX') ? 'IN': data.code ;
   const res2 = await fetch(
     `https://restcountries.com/v3.1/alpha/${countryCode}`
   );
   const data2 = await res2.json();
   // console.log(data2);
   const flag = data2[0].flags.svg;
-  const country = [countryCode, flag, countryName];
+  const country = (data.code === 'XX') ?  [countryCode, "img\\earth_flag.jpg", countryName] : [countryCode, flag, countryName];
   // console.log(countryName);
 
   return country;
@@ -81,11 +82,11 @@ const renderProfile = async function (data) {
     const avatar = !res.avatar ? 'img\\channels4_profile.jpg' : res.avatar;
     const country = await getPlayerCountry(res.country);
     const league = !res.league ? ' ' : res.league + ' League';
-    const verified = res.verified ? '✅' : '';
+    // const verified = res.verified ? '✅' : '';
 
     const html = `<article class="profile">
   <img class="pfp" src="${avatar}"/>
-  <h2>${title} \t ${name} ${verified} </h2>
+  <h2>${title} \t ${name}  </h2>
   <img class="flag" src="${country[1]}"/><h2>${country[2]}</h2> 
   <h2>${league}</h2> 
   </article>`;

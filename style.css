@@ -22,7 +22,7 @@ html {
   border-radius: 100%;
 }
 .flag {
-  height: 5rem;
+  /* height: 5rem; */
   width: 5rem;
 }
 body {
@@ -148,7 +148,7 @@ header {
   border-radius: 25rem;
   font-size: 2.15rem;
   display: grid;
-  grid-template-columns: auto auto 3.5rem auto auto;
+  grid-template-columns: auto auto auto auto auto;
   /* flex-wrap: wrap; */
   align-items: center;
   grid-gap: 2rem;
