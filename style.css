@@ -33,8 +33,8 @@ body {
   font-family: 'Source Serif 4', serif;
   color: #36454f;
   background-color: #eeeded;
-  min-height: 100vh;
-  min-width: 100vh;
+  min-height: 100rem;
+  min-width: 100rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
