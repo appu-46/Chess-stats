@@ -10,7 +10,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
-    <script defer src="script.js"></script>
+    <script type="module" defer src="script.js"></script>
+    <script src="d3.v7.js"></script>
     <!-- <script defer src="https://cdn.canvasjs.com/canvasjs.min.js"></script> -->
     <title>Chess Stats</title>
   </head>
@@ -33,10 +34,12 @@
         />
       </div>
       <button class="btn-stats">Get the stats!</button>
+      <div id="container"></div>
       <div class="error">
         <!-- Error goes here! -->
       </div>
       <div class="player_info">
+        
         <!-- Player info goes here -->
       </div>
       <div class="stats">
