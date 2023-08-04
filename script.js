@@ -19,12 +19,16 @@ errorContainer.hidden = true;
 
 const percentCalc = function(data) {
   const arr = data
-  if (arr.includes('NA')) return 0;
+  console.log(`arrsplice:${arr.slice(2,5)}`)
+  console.log(`arr:${arr}`)
+  // if (data.splice(2,4).includes('NA')) {
+  //   return [0,100]
+  // };
+  
   const winpercent = arr[2]/(arr[2]+arr[3]+arr[4]) * 100
   const drawpercent = arr[4]/(arr[2]+arr[3]+arr[4]) * 100
-
   const res = [winpercent,drawpercent+winpercent]
-
+  console.log(res)  
   return res;
 }
 const getPlayerInfo = async function (username) {
@@ -183,7 +187,7 @@ const renderStats = async function (data) {
     <p>Losses:   ${blitz[3]}</p>
     <p>Draws:    ${blitz[4]}</p>
   </div>
-    <div id = "graph_blitz">
+    <div id = "graph_blitz" class = "graph">
   </div>
   <style>
   #graph_blitz{
@@ -213,7 +217,7 @@ const renderStats = async function (data) {
     <p>Losses:   ${bullet[3]}</p>
     <p>Draws:    ${bullet[4]}</p>
     </div>
-    <div id = "graph_bullet">
+    <div id = "graph_bullet" class = "graph">
   </div><style>
   #graph_bullet{
     border: solid rgb(48, 48, 48) 0.5px;
@@ -242,7 +246,7 @@ const renderStats = async function (data) {
     <p>Losses:   ${daily[3]}</p>
     <p>Draws:    ${daily[4]}</p>
     </div>
-    <div id = "graph_daily">
+    <div id = "graph_daily"  class = "graph">
   </div>
   <style>
   #graph_daily{
@@ -272,7 +276,7 @@ const renderStats = async function (data) {
     <p>Losses:   ${rapid[3]}</p>
     <p>Draws:    ${rapid[4]}</p>
   </div>
-  <div id = "graph_rapid">
+  <div id = "graph_rapid" class = "graph">
   </div>
   <style>
   #graph_rapid{
