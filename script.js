@@ -7,10 +7,10 @@ const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
 const profileContainer = document.querySelector('.player_info');
 const errorContainer = document.querySelector('.error');
-const blitzRecord = document.getElementById('graph_blitz')
-const dailyRecord = document.getElementById('graph_daily')
-const rapidRecord = document.getElementById('graph_rapid')
-const bulletRecord = document.getElementById('graph_bullet')
+// const blitzRecord = document.getElementById('graph_blitz')
+// const dailyRecord = document.getElementById('graph_daily')
+// const rapidRecord = document.getElementById('graph_rapid')
+// const bulletRecord = document.getElementById('graph_bullet')
 
 // const grpah = document.getElementById('graph_blitz')
 errorContainer.hidden = true;
@@ -19,15 +19,16 @@ errorContainer.hidden = true;
 
 const percentCalc = function(data) {
   const arr = data
-  console.log(`arrsplice:${arr.slice(2,5)}`)
-  console.log(`arr:${arr}`)
-  // if (data.splice(2,4).includes('NA')) {
-  //   return [0,100]
-  // };
+  // console.log(`arrslice:${arr.slice(2,5)}`)
+  // console.log(`arr:${arr}`)
+  if (data.slice(2,4).includes('NA')) {
+    return ['','','']
+  };
   
   const winpercent = arr[2]/(arr[2]+arr[3]+arr[4]) * 100
+  const losspercent = arr[3]/(arr[2]+arr[3]+arr[4]) * 100
   const drawpercent = arr[4]/(arr[2]+arr[3]+arr[4]) * 100
-  const res = [winpercent,drawpercent+winpercent]
+  const res = [winpercent,drawpercent,losspercent]
   console.log(res)  
   return res;
 }
@@ -201,11 +202,16 @@ const renderStats = async function (data) {
       #28c704,
       #28c704 ${percentBlitz[0]}%,
       #acacac ${percentBlitz[0]}%,
-      #acacac ${percentBlitz[1]}%,
-      #fd3e24 ${percentBlitz[1]}%
+      #acacac ${percentBlitz[0] + percentBlitz[1]}%,
+      #fd3e24 ${percentBlitz[0] + percentBlitz[1]}%
     );
   };
   </style>
+  <div class="legend">
+  <div class ="win"></div><p> Wins  ${Math.round(percentBlitz[0])}% </p>
+  <div class ="draw"></div><p> Draws ${Math.round(percentBlitz[1])}% </p>
+  <div class ="loss"></div><p> Losses ${Math.round(percentBlitz[2])}% </p>
+    </div>
   </article>`;
     const htmlBullet = `<article class="stat">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
@@ -230,11 +236,16 @@ const renderStats = async function (data) {
       #28c704,
       #28c704 ${percentBullet[0]}%,
       #acacac ${percentBullet[0]}%,
-      #acacac ${percentBullet[1]}%,
-      #fd3e24 ${percentBullet[1]}%
+      #acacac ${percentBullet[0] + percentBullet[1]}%,
+      #fd3e24 ${percentBullet[0] + percentBullet[1]}%
     );
   };
   </style>
+  <div class="legend">
+  <div class ="win"></div><p> Wins  ${Math.round(percentBullet[0])}% </p>
+  <div class ="draw"></div><p> Draws ${Math.round(percentBullet[1])}% </p>
+  <div class ="loss"></div><p> Losses ${Math.round(percentBullet[2])}% </p>
+    </div>
   </article>`;
     const htmlDaily = `<article class="stat">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
@@ -260,11 +271,16 @@ const renderStats = async function (data) {
       #28c704,
       #28c704 ${percentDaily[0]}%,
       #acacac ${percentDaily[0]}%,
-      #acacac ${percentDaily[1]}%,
-      #fd3e24 ${percentDaily[1]}%
+      #acacac ${percentDaily[0] + percentDaily[1]}%,
+      #fd3e24 ${percentDaily[0] + percentDaily[1]}%
     );
   };
   </style>
+  <div class="legend">
+  <div class ="win"></div><p> Wins  ${Math.round(percentDaily[0])}% </p>
+  <div class ="draw"></div><p> Draws ${Math.round(percentDaily[1])}% </p>
+  <div class ="loss"></div><p> Losses ${Math.round(percentDaily[2])}% </p>
+    </div>
   </article>`;
     const htmlRapid = `<article class="stat">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
@@ -290,11 +306,16 @@ const renderStats = async function (data) {
       #28c704,
       #28c704 ${percentRapid[0]}%,
       #acacac ${percentRapid[0]}%,
-      #acacac ${percentRapid[1]}%,
-      #fd3e24 ${percentRapid[1]}%
+      #acacac ${percentRapid[0] + percentRapid[1]}%,
+      #fd3e24 ${percentRapid[0] + percentRapid[1]}%
     );
   };
   </style>
+  <div class="legend">
+  <div class ="win"></div><p> Wins  ${Math.round(percentRapid[0])}% </p>
+  <div class ="draw"></div><p> Draws ${Math.round(percentRapid[1])}% </p>
+  <div class ="loss"></div><p> Losses ${Math.round(percentRapid[2])}% </p>
+    </div>
   </article>
   `; /*
   const html960daily = `<article class="stat">
