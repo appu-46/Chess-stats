@@ -1,21 +1,37 @@
 'use strict';
 
+
+
 const statsButton = document.querySelector('.btn-stats');
 const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
 const profileContainer = document.querySelector('.player_info');
 const errorContainer = document.querySelector('.error');
+const blitzRecord = document.getElementById('graph_blitz')
+const dailyRecord = document.getElementById('graph_daily')
+const rapidRecord = document.getElementById('graph_rapid')
+const bulletRecord = document.getElementById('graph_bullet')
+
+// const grpah = document.getElementById('graph_blitz')
 errorContainer.hidden = true;
 
 
-// const input = document.getElementById('userid');
 
+const percentCalc = function(data) {
+  const arr = data
+  if (arr.includes('NA')) return 0;
+  const winpercent = arr[2]/(arr[2]+arr[3]+arr[4]) * 100
+  const drawpercent = arr[4]/(arr[2]+arr[3]+arr[4]) * 100
+
+  const res = [winpercent,drawpercent+winpercent]
+
+  return res;
+}
 const getPlayerInfo = async function (username) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`);
   const data = await res.json();
   console.log(res);
   console.log(data);
-
   return data;
 };
 
@@ -120,7 +136,8 @@ const renderStats = async function (data) {
           !res.chess_rapid.record.loss ? 'NA' : res.chess_rapid.record.loss,
           !res.chess_rapid.record.draw ? 'NA' : res.chess_rapid.record.draw,
         ];
-
+    const percentRapid = percentCalc(rapid);
+    
     const blitz = !res.chess_blitz
       ? ['NA', 'NA', 'NA', 'NA', 'NA']
       : [
@@ -130,6 +147,7 @@ const renderStats = async function (data) {
           !res.chess_blitz.record.loss ? 'NA' : res.chess_blitz.record.loss,
           !res.chess_blitz.record.draw ? 'NA' : res.chess_blitz.record.draw,
         ];
+    const percentBlitz = percentCalc(blitz);
 
     const bullet = !res.chess_bullet
       ? ['NA', 'NA', 'NA', 'NA', 'NA']
@@ -140,6 +158,7 @@ const renderStats = async function (data) {
           !res.chess_bullet.record.loss ? 'NA' : res.chess_bullet.record.loss,
           !res.chess_bullet.record.draw ? 'NA' : res.chess_bullet.record.draw,
         ];
+    const percentBullet = percentCalc(bullet);
 
     const daily = !res.chess_daily
       ? ['NA', 'NA', 'NA', 'NA', 'NA']
@@ -150,6 +169,7 @@ const renderStats = async function (data) {
           !res.chess_daily.record.loss ? 'NA' : res.chess_daily.record.loss,
           !res.chess_daily.record.draw ? 'NA' : res.chess_daily.record.draw,
         ];
+        const percentDaily = percentCalc(daily);
 
     // console.log(res, blitz, bullet, daily, rapid);
 
@@ -163,6 +183,25 @@ const renderStats = async function (data) {
     <p>Losses:   ${blitz[3]}</p>
     <p>Draws:    ${blitz[4]}</p>
   </div>
+    <div id = "graph_blitz">
+  </div>
+  <style>
+  #graph_blitz{
+    border: solid rgb(48, 48, 48) 0.5px;
+    margin-top: 3rem ;
+    height: 2rem;
+    width: 30rem;
+    border-radius:3rem;
+    background : linear-gradient(
+      90deg, 
+      #28c704,
+      #28c704 ${percentBlitz[0]}%,
+      #acacac ${percentBlitz[0]}%,
+      #acacac ${percentBlitz[1]}%,
+      #fd3e24 ${percentBlitz[1]}%
+    );
+  };
+  </style>
   </article>`;
     const htmlBullet = `<article class="stat">
   <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
@@ -173,7 +212,25 @@ const renderStats = async function (data) {
     <p>Wins:     ${bullet[2]}</p>
     <p>Losses:   ${bullet[3]}</p>
     <p>Draws:    ${bullet[4]}</p>
-  </div>
+    </div>
+    <div id = "graph_bullet">
+  </div><style>
+  #graph_bullet{
+    border: solid rgb(48, 48, 48) 0.5px;
+    margin-top: 3rem ;
+    height: 2rem;
+    width: 30rem;
+    border-radius:3rem;
+    background : linear-gradient(
+      90deg, 
+      #28c704,
+      #28c704 ${percentBullet[0]}%,
+      #acacac ${percentBullet[0]}%,
+      #acacac ${percentBullet[1]}%,
+      #fd3e24 ${percentBullet[1]}%
+    );
+  };
+  </style>
   </article>`;
     const htmlDaily = `<article class="stat">
   <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
@@ -184,7 +241,26 @@ const renderStats = async function (data) {
     <p>Wins:     ${daily[2]}</p>
     <p>Losses:   ${daily[3]}</p>
     <p>Draws:    ${daily[4]}</p>
+    </div>
+    <div id = "graph_daily">
   </div>
+  <style>
+  #graph_daily{
+    border: solid rgb(48, 48, 48) 0.5px;
+    margin-top: 3rem ;
+    height: 2rem;
+    width: 30rem;
+    border-radius:3rem;
+    background : linear-gradient(
+      90deg, 
+      #28c704,
+      #28c704 ${percentDaily[0]}%,
+      #acacac ${percentDaily[0]}%,
+      #acacac ${percentDaily[1]}%,
+      #fd3e24 ${percentDaily[1]}%
+    );
+  };
+  </style>
   </article>`;
     const htmlRapid = `<article class="stat">
   <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
@@ -196,6 +272,25 @@ const renderStats = async function (data) {
     <p>Losses:   ${rapid[3]}</p>
     <p>Draws:    ${rapid[4]}</p>
   </div>
+  <div id = "graph_rapid">
+  </div>
+  <style>
+  #graph_rapid{
+    border: solid rgb(48, 48, 48) 0.5px;
+    margin-top: 3rem ;
+    height: 2rem;
+    width: 30rem;
+    border-radius:3rem;
+    background : linear-gradient(
+      90deg, 
+      #28c704,
+      #28c704 ${percentRapid[0]}%,
+      #acacac ${percentRapid[0]}%,
+      #acacac ${percentRapid[1]}%,
+      #fd3e24 ${percentRapid[1]}%
+    );
+  };
+  </style>
   </article>
   `; /*
   const html960daily = `<article class="stat">
@@ -210,6 +305,7 @@ const renderStats = async function (data) {
   </div>
   </article>
     `;*/
+    
     statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
     statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
     statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
@@ -223,9 +319,10 @@ const renderStats = async function (data) {
     );
     console.error(err);
   }
+
   /*
   window.onload = function () {
-    var chart = new CanvasJS.Chart('chartContainer', {
+    const chart = new CanvasJS.Chart('chartContainer', {
       theme: 'dark2', //light1
       title: {
         text: 'Blitz',
@@ -248,6 +345,7 @@ const renderStats = async function (data) {
   */
 };
 
+
 statsButton.addEventListener('click', function () {
   if (textbox.value === '') {
     alert(`Please enter a chess.com username!`);
@@ -255,8 +353,69 @@ statsButton.addEventListener('click', function () {
   }
 
   renderStats(textbox.value);
+  
   renderProfile(textbox.value);
 });
 
-// renderProfile('arionmiles');
-// renderStats('arionmiles');
+/*
+const data = [1, 1, 2, 3, 5, 8, 13, 21];
+const pie = d3.pie();
+const arcs = pie(data);
+
+console.log(`pie: ${pie},\narcs: ${arcs}`)
+
+const svg = d3.create("svg")
+
+svg.append("g")
+    .selectAll()
+    .data(arcs)
+console.log (svg)
+// return svg.node();
+
+*/
+
+/*
+// const input = document.getElementById('userid');
+const renderPieChart = function (data) {
+  const width = 250,
+      height = 250,
+      margin = 40
+  
+  // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+  const radius = Math.min(width, height) / 2 - margin
+  
+  // append the svg object to the div called 'my_dataviz'
+  const svg = d3.select(d3constainer)
+    .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  
+  // Create dummy data
+  // const data = {Wins: 1460, losses: 1349, draws:99}
+  
+  // set the color scale
+  const color = d3.scaleOrdinal()
+    .range(["green", "red", "gray"])
+  
+  // Compute the position of each group on the pie:
+  const pie = d3.pie()
+    .value(function(d) {return d[1]; })
+  const data_ready = pie(Object.entries(data))
+  
+  // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+  svg
+    .selectAll('whatever')
+    .data(data_ready)
+    .join('path')
+    .attr('d', d3.arc()
+      .innerRadius(0)
+      .outerRadius(radius)
+    )
+    .attr('fill', function(d){ return(color(d.data[1]))})
+    .attr("stroke", "black")
+    .style("stroke-width", "2px")
+    .style("opacity", 0.7)
+  }
+  */
