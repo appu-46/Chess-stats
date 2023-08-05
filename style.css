@@ -104,40 +104,52 @@ header {
   transition: opacity 0.25s;
 }
 
-.stats {
-  /* background-color: #fff; */
+.stats { 
   /* box-shadow: 2rem 3rem 1rem rgba(0, 0, 0, 0.1); */
-  font-size: 2rem;
+  /* font-size: 5rem; */
   border-radius: 0.7rem;
   margin: 0 1rem 1rem 3rem;
   padding: 3rem 3rem 3rem 3rem;
   display: grid;
   grid-template-columns: 40rem 40rem;
-  grid-gap: 3rem;
+  column-gap: 10rem;
+  row-gap: 2rem;
   justify-items: center;
+  align-content: center;
+
 }
 
 .stat {
+  border:solid rgb(48, 48, 48) 0.2rem;
   box-shadow: 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.1);
-  width: 30rem;
-  font-size: 2.4rem;
-  border-radius: 0.7rem;
+  width: 40rem;
+  font-size: 4rem;
+  border-radius: 2rem;
   background-color: #fff;
   margin: 1rem 1rem 1rem 1rem;
   padding: 3rem 3rem 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   /* transition: opacity 0.25s; */
 }
 .ratings {
   box-sizing: content-box;
-  font-size: 2rem;
-  margin-left: 4rem;
+  font-size: 2.5rem;
+  /* margin-right: 6rem; */
+}
+h2{
+  font-size: 5rem;
 }
 
 /* body:background {
   height: 1000px;
   width: 1000px;
 } */
-
+.article{
+  display: flex;
+  /* align-items: center; */
+}
 .profile {
   background-color: #36454f;
   color: #f5fffa;
@@ -165,36 +177,39 @@ header {
   background: rgb(48, 48, 48)
 }
 .legend{
+  width: 40rem;
   margin-top: 1rem;
   font-size: 2rem;
   display: grid;
   align-items: center;
   justify-items: center;
   grid-template-columns: auto auto auto auto auto auto;
-  column-gap: 0.5rem
-  /* justify-items: center; */
+  justify-content: space-between;
 }
 .win{
+  border:solid rgb(48, 48, 48) 0.15rem;
   height: 2rem;
   width: 2rem;
   /* padding: 1rem 1rem 1rem 1rem; */
   /* align-content: center; */
   border-radius: 100%;
-  background-color: #28c704;
+  background-color: #80FF00;
 }
 .draw{
+  border:solid rgb(48, 48, 48) 0.15rem;
   height: 2rem;
   width: 2rem;
   /* padding: 1rem 1rem 1rem 1rem; */
   /* align-content: center; */
   border-radius: 100%;
-  background-color: #acacac
+  background-color: #FCF75E
 }
 .loss{
+  border:solid rgb(48, 48, 48) 0.15rem;
   height: 2rem;
   width: 2rem;
   /* padding: 1rem 1rem 1rem 1rem; */
   /* align-content: center; */
   border-radius: 100%;
-  background-color: #fd3e24
+  background-color: #FF2400
 }

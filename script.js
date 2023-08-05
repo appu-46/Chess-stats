@@ -179,7 +179,7 @@ const renderStats = async function (data) {
     // console.log(res, blitz, bullet, daily, rapid);
 
     const htmlBlitz = `<article class="stat">
-  <h2><strong><span>🔥Blitz Ratings</strong></span> </h2>
+  <h2><strong>Blitz Ratings</strong></h2>
   <div class="ratings">
     <p class="best">Best Elo: ${blitz[0]}</p>
     <p class="latest">Live Elo: ${blitz[1]}</p>
@@ -192,18 +192,18 @@ const renderStats = async function (data) {
   </div>
   <style>
   #graph_blitz{
-    border: solid rgb(48, 48, 48) 0.5px;
-    margin-top: 3rem ;
+    border: solid rgb(48, 48, 48) 0.25rem;
+    margin-top: 2.5rem ;
     height: 2rem;
-    width: 30rem;
+    width: 40rem;
     border-radius:3rem;
     background : linear-gradient(
       90deg, 
-      #28c704,
-      #28c704 ${percentBlitz[0]}%,
-      #acacac ${percentBlitz[0]}%,
-      #acacac ${percentBlitz[0] + percentBlitz[1]}%,
-      #fd3e24 ${percentBlitz[0] + percentBlitz[1]}%
+      #80FF00,
+      #80FF00 ${percentBlitz[0]}%,
+      #FCF75E ${percentBlitz[0]}%,
+      #FCF75E ${percentBlitz[0] + percentBlitz[1]}%,
+      #FF2400 ${percentBlitz[0] + percentBlitz[1]}%
     );
   };
   </style>
@@ -214,7 +214,7 @@ const renderStats = async function (data) {
     </div>
   </article>`;
     const htmlBullet = `<article class="stat">
-  <h2><strong><span>⏱️Bullet Ratings</strong></span> </h2>
+  <h2><strong>Bullet Ratings</strong></h2>
   <div class="ratings">
     <p class="best">Best Elo: ${bullet[0]}</p>
     <p class="latest">Live Elo: ${bullet[1]}</p>
@@ -226,18 +226,18 @@ const renderStats = async function (data) {
     <div id = "graph_bullet" class = "graph">
   </div><style>
   #graph_bullet{
-    border: solid rgb(48, 48, 48) 0.5px;
-    margin-top: 3rem ;
+    border: solid rgb(48, 48, 48) 0.25rem;
+    margin-top: 2.5rem ;
     height: 2rem;
-    width: 30rem;
+    width: 40rem;
     border-radius:3rem;
     background : linear-gradient(
       90deg, 
-      #28c704,
-      #28c704 ${percentBullet[0]}%,
-      #acacac ${percentBullet[0]}%,
-      #acacac ${percentBullet[0] + percentBullet[1]}%,
-      #fd3e24 ${percentBullet[0] + percentBullet[1]}%
+      #80FF00,
+      #80FF00 ${percentBullet[0]}%,
+      #FCF75E ${percentBullet[0]}%,
+      #FCF75E ${percentBullet[0] + percentBullet[1]}%,
+      #FF2400 ${percentBullet[0] + percentBullet[1]}%
     );
   };
   </style>
@@ -248,7 +248,7 @@ const renderStats = async function (data) {
     </div>
   </article>`;
     const htmlDaily = `<article class="stat">
-  <h2><strong><span>☀️Daily Ratings</strong></span> </h2>
+  <h2><strong>Daily Ratings</strong></h2>
   <div class="ratings">
     <p class="best">Best Elo: ${daily[0]}</p>
     <p class="latest">Live Elo: ${daily[1]}</p>
@@ -261,18 +261,18 @@ const renderStats = async function (data) {
   </div>
   <style>
   #graph_daily{
-    border: solid rgb(48, 48, 48) 0.5px;
-    margin-top: 3rem ;
+    border: solid rgb(48, 48, 48) 0.25rem;
+    margin-top: 2.5rem ;
     height: 2rem;
-    width: 30rem;
+    width: 40rem;
     border-radius:3rem;
     background : linear-gradient(
       90deg, 
-      #28c704,
-      #28c704 ${percentDaily[0]}%,
-      #acacac ${percentDaily[0]}%,
-      #acacac ${percentDaily[0] + percentDaily[1]}%,
-      #fd3e24 ${percentDaily[0] + percentDaily[1]}%
+      #80FF00,
+      #80FF00 ${percentDaily[0]}%,
+      #FCF75E ${percentDaily[0]}%,
+      #FCF75E ${percentDaily[0] + percentDaily[1]}%,
+      #FF2400 ${percentDaily[0] + percentDaily[1]}%
     );
   };
   </style>
@@ -283,7 +283,7 @@ const renderStats = async function (data) {
     </div>
   </article>`;
     const htmlRapid = `<article class="stat">
-  <h2><strong><span>⏰Rapid Ratings</strong></span> </h2>
+  <h2><strong>Rapid Ratings</strong></h2>
   <div class="ratings">
     <p class="best">Best Elo: ${rapid[0]}</p>
     <p class="latest">Live Elo: ${rapid[1]}</p>
@@ -296,18 +296,18 @@ const renderStats = async function (data) {
   </div>
   <style>
   #graph_rapid{
-    border: solid rgb(48, 48, 48) 0.5px;
-    margin-top: 3rem ;
+    border: solid rgb(48, 48, 48) 0.25rem;
+    margin-top: 2.5rem ;
     height: 2rem;
-    width: 30rem;
+    width: 40rem;
     border-radius:3rem;
     background : linear-gradient(
       90deg, 
-      #28c704,
-      #28c704 ${percentRapid[0]}%,
-      #acacac ${percentRapid[0]}%,
-      #acacac ${percentRapid[0] + percentRapid[1]}%,
-      #fd3e24 ${percentRapid[0] + percentRapid[1]}%
+      #80FF00,
+      #80FF00 ${percentRapid[0]}%,
+      #FCF75E ${percentRapid[0]}%,
+      #FCF75E ${percentRapid[0] + percentRapid[1]}%,
+      #FF2400 ${percentRapid[0] + percentRapid[1]}%
     );
   };
   </style>
@@ -444,3 +444,4 @@ const renderPieChart = function (data) {
     .style("opacity", 0.7)
   }
   */
+ renderStats('hikaru')
