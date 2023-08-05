@@ -444,4 +444,4 @@ const renderPieChart = function (data) {
     .style("opacity", 0.7)
   }
   */
- renderStats('hikaru')
+//  renderStats('hikaru')
