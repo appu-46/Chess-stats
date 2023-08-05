@@ -21,7 +21,7 @@ const percentCalc = function(data) {
   const arr = data
   // console.log(`arrslice:${arr.slice(2,5)}`)
   // console.log(`arr:${arr}`)
-  if (data.slice(2,4).includes('NA')) {
+  if (data.slice(2,5).includes('NA')) {
     return ['','','']
   };
   
