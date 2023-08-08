@@ -9,7 +9,7 @@ I have hosted it on netlify. [Here is the link](https://chess-stats-46.netlify.a
 I have used chess.com public API to fetch the rating and results data using AJAX calls. In profile it also loads profile picture of the respective username and a country flag. I have used rest countries API to get flag svg, profile picture is provided by chess.com API. 
 Since country code is recieved from chess.com's API, I am calling yet another AJAX call to render the country flag. 
 
-For some chess.com players, country is internation. Such a scenario, I have handled by showing earth flag. Same thing goes for profile picture. If the user doesn't have one, a default pawn image will render. 
+For some chess.com players, country is international. In such a scenario, I have handled by showing earth flag. Same thing goes for profile picture. If the user doesn't have one, a default pawn image will render instead. 
 
 # Error Handling
 1. Pressing the button without entering any username.
@@ -19,6 +19,7 @@ For some chess.com players, country is internation. Such a scenario, I have hand
    2. If API fails to fetch profile.
 4. No data for a particular time control
 5. Not enough data to render the win loss draw graph.
+6. For Titled player, respective title will be shown in profile.  
 
 ## Future work
 There is much work to do on this project. I will keep updating this as I keep adding more and more features. 
