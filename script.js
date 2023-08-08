@@ -21,7 +21,7 @@ const percentCalc = function(data) {
   const arr = data
   // console.log(`arrslice:${arr.slice(2,5)}`)
   // console.log(`arr:${arr}`)
-  if (data.slice(2,5).includes('NA')) {
+  if (data.slice(2,5).includes('No data')) {
     return ['','','']
   };
   
@@ -133,46 +133,46 @@ const renderStats = async function (data) {
     }
     // console.log(typeof !res.chess_bullet, !res.chess_bullet, res.chess_bullet);
     const rapid = !res.chess_rapid
-      ? ['NA', 'NA', 'NA', 'NA', 'NA']
+      ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_rapid.best        ? 'NA' : res.chess_rapid.best.rating,
-          !res.chess_rapid.last.rating ? 'NA' : res.chess_rapid.last.rating,
-          !res.chess_rapid.record.win  ? 'NA' : res.chess_rapid.record.win,
-          !res.chess_rapid.record.loss ? 'NA' : res.chess_rapid.record.loss,
-          !res.chess_rapid.record.draw ? 'NA' : res.chess_rapid.record.draw,
+          !res.chess_rapid.best        ? 'No data' : res.chess_rapid.best.rating,
+          !res.chess_rapid.last.rating ? 'No data' : res.chess_rapid.last.rating,
+          !res.chess_rapid.record.win  ? 'No data' : res.chess_rapid.record.win,
+          !res.chess_rapid.record.loss ? 'No data' : res.chess_rapid.record.loss,
+          !res.chess_rapid.record.draw ? 'No data' : res.chess_rapid.record.draw,
         ];
     const percentRapid = percentCalc(rapid);
     
     const blitz = !res.chess_blitz
-      ? ['NA', 'NA', 'NA', 'NA', 'NA']
+      ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_blitz.best        ? 'NA' : res.chess_blitz.best.rating,
-          !res.chess_blitz.last.rating ? 'NA' : res.chess_blitz.last.rating,
-          !res.chess_blitz.record.win  ? 'NA' : res.chess_blitz.record.win,
-          !res.chess_blitz.record.loss ? 'NA' : res.chess_blitz.record.loss,
-          !res.chess_blitz.record.draw ? 'NA' : res.chess_blitz.record.draw,
+          !res.chess_blitz.best        ? 'No data' : res.chess_blitz.best.rating,
+          !res.chess_blitz.last.rating ? 'No data' : res.chess_blitz.last.rating,
+          !res.chess_blitz.record.win  ? 'No data' : res.chess_blitz.record.win,
+          !res.chess_blitz.record.loss ? 'No data' : res.chess_blitz.record.loss,
+          !res.chess_blitz.record.draw ? 'No data' : res.chess_blitz.record.draw,
         ];
     const percentBlitz = percentCalc(blitz);
 
     const bullet = !res.chess_bullet
-      ? ['NA', 'NA', 'NA', 'NA', 'NA']
+      ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_bullet.best        ? 'NA' : res.chess_bullet.best.rating,
-          !res.chess_bullet.last.rating ? 'NA' : res.chess_bullet.last.rating,
-          !res.chess_bullet.record.win  ? 'NA' : res.chess_bullet.record.win,
-          !res.chess_bullet.record.loss ? 'NA' : res.chess_bullet.record.loss,
-          !res.chess_bullet.record.draw ? 'NA' : res.chess_bullet.record.draw,
+          !res.chess_bullet.best        ? 'No data' : res.chess_bullet.best.rating,
+          !res.chess_bullet.last.rating ? 'No data' : res.chess_bullet.last.rating,
+          !res.chess_bullet.record.win  ? 'No data' : res.chess_bullet.record.win,
+          !res.chess_bullet.record.loss ? 'No data' : res.chess_bullet.record.loss,
+          !res.chess_bullet.record.draw ? 'No data' : res.chess_bullet.record.draw,
         ];
     const percentBullet = percentCalc(bullet);
 
     const daily = !res.chess_daily
-      ? ['NA', 'NA', 'NA', 'NA', 'NA']
+      ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_daily.best        ? 'NA' : res.chess_daily.best.rating,
-          !res.chess_daily.last.rating ? 'NA' : res.chess_daily.last.rating,
-          !res.chess_daily.record.win  ? 'NA' : res.chess_daily.record.win,
-          !res.chess_daily.record.loss ? 'NA' : res.chess_daily.record.loss,
-          !res.chess_daily.record.draw ? 'NA' : res.chess_daily.record.draw,
+          !res.chess_daily.best        ? 'No data' : res.chess_daily.best.rating,
+          !res.chess_daily.last.rating ? 'No data' : res.chess_daily.last.rating,
+          !res.chess_daily.record.win  ? 'No data' : res.chess_daily.record.win,
+          !res.chess_daily.record.loss ? 'No data' : res.chess_daily.record.loss,
+          !res.chess_daily.record.draw ? 'No data' : res.chess_daily.record.draw,
         ];
         const percentDaily = percentCalc(daily);
 
@@ -380,6 +380,17 @@ statsButton.addEventListener('click', function () {
   renderStats(textbox.value);
   
   renderProfile(textbox.value);
+});
+
+textbox.addEventListener('keydown', function (e) {
+  if (e.keyCode === 13 ) {
+    if (textbox.value === '') {
+      alert(`Please enter a chess.com username!`);
+      return;
+    }
+    renderStats(textbox.value);
+    renderProfile(textbox.value);
+  }
 });
 
 /*
