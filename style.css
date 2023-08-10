@@ -232,14 +232,11 @@ header {
   width: 2.5rem;
 }
 footer{
-  /* border-top: solid gray 0.2rem; */
-  /* padding-top: 0.5rem; */
   height: 3rem;
-  width: 100rem;
   display: grid;
   font-size: 2rem;
   grid-template-columns: auto auto;
-  /* column-gap: 5rem; */
+  column-gap: 20rem;
   justify-content: space-between;
 }
 
