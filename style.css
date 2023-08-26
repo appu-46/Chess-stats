@@ -35,8 +35,8 @@ body {
   font-family: 'Source Serif 4', serif;
   color: #36454f;
   background-color: #eeeded;
-  min-height: 100rem;
-  min-width: 100rem;
+  min-height: fit-content;
+  min-width: fit-content;
   display: grid;
   /* flex-wrap: wrap; */
   justify-content: center;
