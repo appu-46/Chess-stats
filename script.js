@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const statsButton = document.querySelector('.btn-stats');
 const statsContainer = document.querySelector('.stats');
 const textbox = document.querySelector('.textbox');
@@ -15,23 +13,31 @@ const errorContainer = document.querySelector('.error');
 // const grpah = document.getElementById('graph_blitz')
 errorContainer.hidden = true;
 
+const renderLoader = function (parentEl) {
+  const markup = `
+  <div class="spinner">
+  <img class="spinner" src="img\\saber_loader.gif"/>
+</div>
+  `;
+  parentEl.innerHTML = '';
+  parentEl.insertAdjacentHTML('afterbegin', markup);
+};
 
-
-const percentCalc = function(data) {
-  const arr = data
+const percentCalc = function (data) {
+  const arr = data;
   // console.log(`arrslice:${arr.slice(2,5)}`)
   // console.log(`arr:${arr}`)
-  if (data.slice(2,5).includes('No data')) {
-    return ['','','']
-  };
-  
-  const winpercent = arr[2]/(arr[2]+arr[3]+arr[4]) * 100
-  const losspercent = arr[3]/(arr[2]+arr[3]+arr[4]) * 100
-  const drawpercent = arr[4]/(arr[2]+arr[3]+arr[4]) * 100
-  const res = [winpercent,drawpercent,losspercent]
-  console.log(res)  
+  if (data.slice(2, 5).includes('No data')) {
+    return ['', '', ''];
+  }
+
+  const winpercent = (arr[2] / (arr[2] + arr[3] + arr[4])) * 100;
+  const losspercent = (arr[3] / (arr[2] + arr[3] + arr[4])) * 100;
+  const drawpercent = (arr[4] / (arr[2] + arr[3] + arr[4])) * 100;
+  const res = [winpercent, drawpercent, losspercent];
+  console.log(res);
   return res;
-}
+};
 const getPlayerInfo = async function (username) {
   const res = await fetch(`https://api.chess.com/pub/player/${username}`);
   const data = await res.json();
@@ -44,14 +50,17 @@ const getPlayerCountry = async function (url) {
   const res = await fetch(url);
   const data = await res.json();
   const countryName = data.name;
-  const countryCode = (data.code === 'XX') ? 'IN': data.code ;
+  const countryCode = data.code === 'XX' ? 'IN' : data.code;
   const res2 = await fetch(
     `https://restcountries.com/v3.1/alpha/${countryCode}`
   );
   const data2 = await res2.json();
   // console.log(data2);
   const flag = data2[0].flags.svg;
-  const country = (data.code === 'XX') ?  [countryCode, "img\\earth_flag.jpg", countryName] : [countryCode, flag, countryName];
+  const country =
+    data.code === 'XX'
+      ? [countryCode, 'img\\earth_flag.jpg', countryName]
+      : [countryCode, flag, countryName];
   // console.log(countryName);
 
   return country;
@@ -96,6 +105,7 @@ const renderProfile = async function (data) {
   //   return;
   // }
   try {
+    renderLoader(profileContainer);
     const res = await getPlayerInfo(data);
 
     const title = !res.title ? ' ' : res.title;
@@ -112,6 +122,7 @@ const renderProfile = async function (data) {
   <h2>${league}</h2> 
   </article>`;
 
+    profileContainer.innerHTML = '';
     profileContainer.insertAdjacentHTML('beforeend', html);
     textbox.hidden = true;
     statsButton.hidden = true;
@@ -126,6 +137,7 @@ const renderProfile = async function (data) {
 
 const renderStats = async function (data) {
   try {
+    renderLoader(statsContainer);
     const res = await getStats(data);
     if (res.code === 0) {
       // throw new Error(`${res.message}`);
@@ -135,46 +147,72 @@ const renderStats = async function (data) {
     const rapid = !res.chess_rapid
       ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_rapid.best        ? 'No data' : res.chess_rapid.best.rating,
-          !res.chess_rapid.last.rating ? 'No data' : res.chess_rapid.last.rating,
-          !res.chess_rapid.record.win  ? 'No data' : res.chess_rapid.record.win,
-          !res.chess_rapid.record.loss ? 'No data' : res.chess_rapid.record.loss,
-          !res.chess_rapid.record.draw ? 'No data' : res.chess_rapid.record.draw,
+          !res.chess_rapid.best ? 'No data' : res.chess_rapid.best.rating,
+          !res.chess_rapid.last.rating
+            ? 'No data'
+            : res.chess_rapid.last.rating,
+          !res.chess_rapid.record.win ? 'No data' : res.chess_rapid.record.win,
+          !res.chess_rapid.record.loss
+            ? 'No data'
+            : res.chess_rapid.record.loss,
+          !res.chess_rapid.record.draw
+            ? 'No data'
+            : res.chess_rapid.record.draw,
         ];
     const percentRapid = percentCalc(rapid);
-    
+
     const blitz = !res.chess_blitz
       ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_blitz.best        ? 'No data' : res.chess_blitz.best.rating,
-          !res.chess_blitz.last.rating ? 'No data' : res.chess_blitz.last.rating,
-          !res.chess_blitz.record.win  ? 'No data' : res.chess_blitz.record.win,
-          !res.chess_blitz.record.loss ? 'No data' : res.chess_blitz.record.loss,
-          !res.chess_blitz.record.draw ? 'No data' : res.chess_blitz.record.draw,
+          !res.chess_blitz.best ? 'No data' : res.chess_blitz.best.rating,
+          !res.chess_blitz.last.rating
+            ? 'No data'
+            : res.chess_blitz.last.rating,
+          !res.chess_blitz.record.win ? 'No data' : res.chess_blitz.record.win,
+          !res.chess_blitz.record.loss
+            ? 'No data'
+            : res.chess_blitz.record.loss,
+          !res.chess_blitz.record.draw
+            ? 'No data'
+            : res.chess_blitz.record.draw,
         ];
     const percentBlitz = percentCalc(blitz);
 
     const bullet = !res.chess_bullet
       ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_bullet.best        ? 'No data' : res.chess_bullet.best.rating,
-          !res.chess_bullet.last.rating ? 'No data' : res.chess_bullet.last.rating,
-          !res.chess_bullet.record.win  ? 'No data' : res.chess_bullet.record.win,
-          !res.chess_bullet.record.loss ? 'No data' : res.chess_bullet.record.loss,
-          !res.chess_bullet.record.draw ? 'No data' : res.chess_bullet.record.draw,
+          !res.chess_bullet.best ? 'No data' : res.chess_bullet.best.rating,
+          !res.chess_bullet.last.rating
+            ? 'No data'
+            : res.chess_bullet.last.rating,
+          !res.chess_bullet.record.win
+            ? 'No data'
+            : res.chess_bullet.record.win,
+          !res.chess_bullet.record.loss
+            ? 'No data'
+            : res.chess_bullet.record.loss,
+          !res.chess_bullet.record.draw
+            ? 'No data'
+            : res.chess_bullet.record.draw,
         ];
     const percentBullet = percentCalc(bullet);
 
     const daily = !res.chess_daily
       ? ['No data', 'No data', 'No data', 'No data', 'No data']
       : [
-          !res.chess_daily.best        ? 'No data' : res.chess_daily.best.rating,
-          !res.chess_daily.last.rating ? 'No data' : res.chess_daily.last.rating,
-          !res.chess_daily.record.win  ? 'No data' : res.chess_daily.record.win,
-          !res.chess_daily.record.loss ? 'No data' : res.chess_daily.record.loss,
-          !res.chess_daily.record.draw ? 'No data' : res.chess_daily.record.draw,
+          !res.chess_daily.best ? 'No data' : res.chess_daily.best.rating,
+          !res.chess_daily.last.rating
+            ? 'No data'
+            : res.chess_daily.last.rating,
+          !res.chess_daily.record.win ? 'No data' : res.chess_daily.record.win,
+          !res.chess_daily.record.loss
+            ? 'No data'
+            : res.chess_daily.record.loss,
+          !res.chess_daily.record.draw
+            ? 'No data'
+            : res.chess_daily.record.draw,
         ];
-        const percentDaily = percentCalc(daily);
+    const percentDaily = percentCalc(daily);
 
     // console.log(res, blitz, bullet, daily, rapid);
 
@@ -330,7 +368,8 @@ const renderStats = async function (data) {
   </div>
   </article>
     `;*/
-    
+
+    statsContainer.innerHTML = '';
     statsContainer.insertAdjacentHTML('beforeend', htmlRapid);
     statsContainer.insertAdjacentHTML('beforeend', htmlBlitz);
     statsContainer.insertAdjacentHTML('beforeend', htmlBullet);
@@ -370,7 +409,6 @@ const renderStats = async function (data) {
   */
 };
 
-
 statsButton.addEventListener('click', function () {
   if (textbox.value === '') {
     alert(`Please enter a chess.com username!`);
@@ -378,12 +416,12 @@ statsButton.addEventListener('click', function () {
   }
 
   renderStats(textbox.value);
-  
+
   renderProfile(textbox.value);
 });
 
 textbox.addEventListener('keydown', function (e) {
-  if (e.keyCode === 13 ) {
+  if (e.keyCode === 13) {
     if (textbox.value === '') {
       alert(`Please enter a chess.com username!`);
       return;
