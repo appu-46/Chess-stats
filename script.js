@@ -225,6 +225,7 @@ const renderStats = async function (data) {
     <p>Wins:     ${blitz[2]}</p>
     <p>Losses:   ${blitz[3]}</p>
     <p>Draws:    ${blitz[4]}</p>
+    <P>Total Games: ${blitz[2] + blitz[3] + blitz[4]}</p>
   </div>
     <div id = "graph_blitz" class = "graph">
   </div>
@@ -260,6 +261,7 @@ const renderStats = async function (data) {
     <p>Wins:     ${bullet[2]}</p>
     <p>Losses:   ${bullet[3]}</p>
     <p>Draws:    ${bullet[4]}</p>
+    <P>Total Games: ${bullet[2] + bullet[3] + bullet[4]}</p>
     </div>
     <div id = "graph_bullet" class = "graph">
   </div><style>
@@ -294,6 +296,7 @@ const renderStats = async function (data) {
     <p>Wins:     ${daily[2]}</p>
     <p>Losses:   ${daily[3]}</p>
     <p>Draws:    ${daily[4]}</p>
+    <P>Total Games: ${daily[2] + daily[3] + daily[4]}</p>
     </div>
     <div id = "graph_daily"  class = "graph">
   </div>
@@ -329,6 +332,7 @@ const renderStats = async function (data) {
     <p>Wins:     ${rapid[2]}</p>
     <p>Losses:   ${rapid[3]}</p>
     <p>Draws:    ${rapid[4]}</p>
+    <P>Total Games: ${rapid[2] + rapid[3] + rapid[4]}</p>
   </div>
   <div id = "graph_rapid" class = "graph">
   </div>
@@ -365,6 +369,7 @@ const renderStats = async function (data) {
     <p>Wins:     ${daily960.record.win}</p>
     <p>Losses:   ${daily960.record.loss}</p>
     <p>Draws:    ${daily960.record.draw}</p>
+    <p>Total Games: ${}</p>
   </div>
   </article>
     `;*/
